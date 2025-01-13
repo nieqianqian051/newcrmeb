@@ -1,6 +1,7 @@
 package com.crmeb.websocket;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.TypeReference;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -43,7 +44,7 @@ public class WebSocketHandler extends TextWebSocketHandler {
     protected void handleTextMessage(WebSocketSession session, TextMessage message) {
         try {
             String payload = message.getPayload();
-            WebSocketMessage<Object> msg = JSON.parseObject(payload, WebSocketMessage.class);
+            WebSocketMessage<Object> msg = JSON.parseObject(payload, new TypeReference<WebSocketMessage<Object>>() {});
             
             switch (msg.getType()) {
                 case "join":

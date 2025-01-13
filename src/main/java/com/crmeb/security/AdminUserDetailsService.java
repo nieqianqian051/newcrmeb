@@ -26,8 +26,8 @@ public class AdminUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        SystemAdmin admin = adminRepository.findByAccount(username)
-                .orElseThrow(() -> new UsernameNotFoundException("Admin not found: " + username));
+        SystemAdmin admin = adminRepository.findByAccountAndStatusTrueAndIsDelFalse(username)
+                .orElseThrow(() -> new UsernameNotFoundException("Admin not found or inactive: " + username));
 
         return new org.springframework.security.core.userdetails.User(
                 admin.getAccount(),
