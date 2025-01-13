@@ -2,7 +2,11 @@ package com.crmeb.service;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.annotation.Import;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.junit.jupiter.api.extension.ExtendWith;
+import com.crmeb.config.RedisConfig;
+import com.crmeb.service.SystemConfigService;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.data.redis.core.RedisTemplate;
 
@@ -27,14 +31,15 @@ import static org.mockito.Mockito.when;
  * @author Devin
  * @since 2024-01-xx
  */
-@SpringBootTest
+@ExtendWith(SpringExtension.class)
+@Import({RedisConfig.class, SystemConfigService.class})
 public class SystemConfigServiceTest {
 
     @Autowired
     private SystemConfigService systemConfigService;
 
     @MockBean
-    private CacheService cacheService;
+    private com.crmeb.service.cache.CacheService cacheService;
 
     @Test
     public void testGetSingleConfig() {

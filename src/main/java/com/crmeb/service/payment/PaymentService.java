@@ -1,13 +1,13 @@
 package com.crmeb.service.payment;
 
+import java.math.BigDecimal;
+
 import com.alipay.easysdk.factory.Factory;
 import com.alipay.easysdk.payment.page.models.AlipayTradePagePayResponse;
 import com.wechat.pay.java.service.payments.model.Transaction;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-
-import java.math.BigDecimal;
 
 /**
  * Payment Service
@@ -31,7 +31,8 @@ public class PaymentService {
     private final com.crmeb.service.cache.CacheService cacheService;
 
     /**
-     * Create Alipay payment URL
+     * Create Alipay payment URL.
+     *
      * @param orderId Order ID
      * @param amount Payment amount
      * @param subject Payment subject
@@ -50,7 +51,8 @@ public class PaymentService {
     }
 
     /**
-     * Create WeChat payment
+     * Create WeChat payment.
+     *
      * @param orderId Order ID
      * @param amount Payment amount
      * @param description Payment description
@@ -67,7 +69,8 @@ public class PaymentService {
     }
 
     /**
-     * Handle payment notification
+     * Handle payment notification.
+     *
      * @param type Payment type (wechat/alipay)
      * @param notifyData Notification data
      * @return Processing result

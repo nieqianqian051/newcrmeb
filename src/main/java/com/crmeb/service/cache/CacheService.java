@@ -1,12 +1,13 @@
 package com.crmeb.service.cache;
 
-import lombok.extern.slf4j.Slf4j;
+import java.util.concurrent.TimeUnit;
+import java.util.function.Supplier;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
-import java.util.concurrent.TimeUnit;
-import java.util.function.Supplier;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * Enterprise-level Cache Service implementation
@@ -62,7 +63,8 @@ public class CacheService {
     private RedisTemplate<String, Object> redisTemplate;
 
     /**
-     * Check if cache exists
+     * Check if cache exists.
+     *
      * @param name cache key
      * @return true if exists
      */
@@ -76,7 +78,8 @@ public class CacheService {
     }
 
     /**
-     * Set cache with value
+     * Set cache with value.
+     *
      * @param name cache key
      * @param value cache value
      * @param expire expiration in seconds
@@ -96,7 +99,8 @@ public class CacheService {
     }
 
     /**
-     * Get cache value with default supplier
+     * Get cache value with default supplier.
+     *
      * @param name cache key
      * @param defaultSupplier default value supplier
      * @param expire expiration in seconds
@@ -121,7 +125,8 @@ public class CacheService {
     }
 
     /**
-     * Delete cache
+     * Delete cache.
+     *
      * @param name cache key
      * @return true if successful
      */
@@ -135,14 +140,17 @@ public class CacheService {
     }
 
     /**
-     * Clear all cache with tag
+     * Clear all cache with tag.
+     *
      * @param tag cache tag
      * @return true if successful
      */
     public boolean clear(String tag) {
         try {
             String pattern = tag + ":*";
-            redisTemplate.delete(redisTemplate.keys(pattern));
+            if (redisTemplate.keys(pattern) != null) {
+                redisTemplate.delete(redisTemplate.keys(pattern));
+            }
             return true;
         } catch (Exception e) {
             log.error("Cache clear failed for tag: {}", tag, e);
@@ -151,7 +159,8 @@ public class CacheService {
     }
 
     /**
-     * Get cache expiration time
+     * Get cache expiration time.
+     *
      * @return expiration in seconds
      */
     private int getExpire() {

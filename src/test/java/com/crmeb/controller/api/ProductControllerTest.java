@@ -3,8 +3,16 @@ package com.crmeb.controller.api;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.context.annotation.Import;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.http.MediaType;
+import com.crmeb.config.SecurityConfig;
+import com.crmeb.config.WebMvcConfig;
+import com.crmeb.service.SystemConfigService;
+import com.crmeb.service.cache.CacheService;
+import com.crmeb.service.product.ProductService;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -24,12 +32,22 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * @author Devin
  * @since 2024-01-xx
  */
-@SpringBootTest
+@WebMvcTest(ProductController.class)
 @AutoConfigureMockMvc
+@Import({SecurityConfig.class, WebMvcConfig.class})
 public class ProductControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
+
+    @MockBean
+    private SystemConfigService systemConfigService;
+
+    @MockBean
+    private CacheService cacheService;
+
+    @MockBean
+    private ProductService productService;
 
     @Test
     public void testGetProducts() throws Exception {

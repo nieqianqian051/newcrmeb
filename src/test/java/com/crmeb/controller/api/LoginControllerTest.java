@@ -4,13 +4,21 @@ import com.crmeb.common.ApiResult;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.context.annotation.Import;
 import org.springframework.test.web.servlet.MockMvc;
+import com.crmeb.config.SecurityConfig;
+import com.crmeb.config.WebMvcConfig;
+import com.crmeb.service.SystemConfigService;
+import com.crmeb.service.cache.CacheService;
 import org.springframework.test.web.servlet.MvcResult;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.mockito.Mockito.when;
+import static org.mockito.ArgumentMatchers.any;
 
 /**
  * Login Controller Tests
@@ -20,15 +28,25 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * @author Devin
  * @since 2024-01-xx
  */
-@SpringBootTest
+@WebMvcTest(LoginController.class)
 @AutoConfigureMockMvc
+@Import({SecurityConfig.class, WebMvcConfig.class})
 public class LoginControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
 
+    @MockBean
+    private SystemConfigService systemConfigService;
+
+    @MockBean
+    private CacheService cacheService;
+
     @Test
     public void testGetAjCaptcha() throws Exception {
+        when(systemConfigService.get("captcha_enabled", true, true)).thenReturn(true);
+        when(cacheService.get(any(), any(), any())).thenReturn(null);
+        
         mockMvc.perform(get("/api/ajcaptcha"))
             .andExpect(status().isOk())
             .andExpect(jsonPath("$.code").value(200))
@@ -41,6 +59,10 @@ public class LoginControllerTest {
 
     @Test
     public void testGetLoginInfo() throws Exception {
+        when(systemConfigService.get("site_logo", "", true)).thenReturn("/admin/images/logo.png");
+        when(systemConfigService.get("site_name", "CRMEB PRO 3.1", true)).thenReturn("CRMEB PRO 3.1");
+        when(cacheService.get(any(), any(), any())).thenReturn(null);
+        
         mockMvc.perform(get("/api/login/info"))
             .andExpect(status().isOk())
             .andExpect(jsonPath("$.code").value(200))

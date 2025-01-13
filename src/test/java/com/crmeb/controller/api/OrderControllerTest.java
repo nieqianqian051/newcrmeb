@@ -3,12 +3,22 @@ package com.crmeb.controller.api;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.context.annotation.Import;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.http.MediaType;
+import com.crmeb.config.SecurityConfig;
+import com.crmeb.config.WebMvcConfig;
+import com.crmeb.service.SystemConfigService;
+import com.crmeb.service.cache.CacheService;
+import com.crmeb.service.payment.PaymentService;
 import org.springframework.http.MediaType;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.mockito.Mockito.when;
+import static org.mockito.ArgumentMatchers.any;
 
 /**
  * Order Controller Tests
@@ -25,12 +35,22 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * @author Devin
  * @since 2024-01-xx
  */
-@SpringBootTest
+@WebMvcTest(OrderController.class)
 @AutoConfigureMockMvc
+@Import({SecurityConfig.class, WebMvcConfig.class})
 public class OrderControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
+
+    @MockBean
+    private SystemConfigService systemConfigService;
+
+    @MockBean
+    private CacheService cacheService;
+
+    @MockBean
+    private PaymentService paymentService;
 
     @Test
     public void testGetOrderList() throws Exception {

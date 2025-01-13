@@ -2,7 +2,10 @@ package com.crmeb.service;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.annotation.Import;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.junit.jupiter.api.extension.ExtendWith;
+import com.crmeb.config.RedisConfig;
 import org.springframework.data.redis.core.RedisTemplate;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -21,11 +24,12 @@ import static org.junit.jupiter.api.Assertions.*;
  * @author Devin
  * @since 2024-01-xx
  */
-@SpringBootTest
+@ExtendWith(SpringExtension.class)
+@Import(RedisConfig.class)
 public class CacheServiceTest {
 
     @Autowired
-    private CacheService cacheService;
+    private com.crmeb.service.cache.CacheService cacheService;
 
     @Test
     public void testSetAndGet() {
