@@ -1,4 +1,4 @@
-package com.crmeb.model.request;
+package com.crmeb.model.request.admin;
 
 import lombok.Data;
 import javax.validation.constraints.NotBlank;

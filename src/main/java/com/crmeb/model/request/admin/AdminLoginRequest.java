@@ -1,10 +1,10 @@
-package com.crmeb.model.request;
+package com.crmeb.model.request.admin;
 
 import lombok.Data;
 import javax.validation.constraints.NotBlank;
 
 @Data
-public class LoginRequest {
+public class AdminLoginRequest {
     @NotBlank(message = "Username is required")
     private String username;
 

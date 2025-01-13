@@ -28,7 +28,7 @@ import java.math.BigDecimal;
 @RequiredArgsConstructor
 public class PaymentService {
 
-    private final CacheService cacheService;
+    private final com.crmeb.service.cache.CacheService cacheService;
 
     /**
      * Create Alipay payment URL

@@ -1,13 +1,13 @@
-package com.crmeb.model.request;
+package com.crmeb.model.request.api;
 
 import lombok.Data;
 import javax.validation.constraints.NotBlank;
 
 @Data
-public class VerifyCodeRequest {
+public class MobileLoginRequest {
     @NotBlank(message = "Mobile number is required")
     private String mobile;
 
-    @NotBlank(message = "Type is required")
-    private String type;
+    @NotBlank(message = "Verification code is required")
+    private String code;
 }
