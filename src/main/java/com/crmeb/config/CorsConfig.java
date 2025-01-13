@@ -19,10 +19,24 @@ public class CorsConfig {
     @Bean
     public CorsFilter corsFilter() {
         CorsConfiguration config = new CorsConfiguration();
-        config.addAllowedOrigin("*");
+        // Allow specific origins for development
+        config.addAllowedOrigin("http://localhost:8080");
+        config.addAllowedOrigin("http://127.0.0.1:8080");
+        
+        // Allow all headers and methods
         config.addAllowedHeader("*");
         config.addAllowedMethod("*");
+        
+        // Allow credentials (cookies, authorization headers)
         config.setAllowCredentials(true);
+        
+        // Expose headers that might be needed by the client
+        config.addExposedHeader("Authorization");
+        config.addExposedHeader("Content-Disposition");
+        config.addExposedHeader("Access-Control-Allow-Origin");
+        config.addExposedHeader("Access-Control-Allow-Credentials");
+        config.addExposedHeader("Access-Control-Allow-Methods");
+        config.addExposedHeader("Access-Control-Allow-Headers");
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", config);

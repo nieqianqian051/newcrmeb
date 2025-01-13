@@ -5,7 +5,13 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = {
+    "com.crmeb.controller",
+    "com.crmeb.config",
+    "com.crmeb.service",
+    "com.crmeb.security",
+    "com.crmeb.websocket"
+})
 @EnableScheduling
 @EnableTransactionManagement
 public class CrmebApplication {

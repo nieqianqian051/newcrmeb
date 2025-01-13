@@ -27,7 +27,32 @@ module.exports = {
   productionSourceMap: false, //关闭生产环境下的SourceMap映射文件
   devServer: {
     publicPath: Setting.publicPath,
-
+    proxy: {
+      '/adminapi': {
+        target: 'http://localhost:8081',
+        ws: true,
+        changeOrigin: true,
+        pathRewrite: {
+          '^/adminapi': '/adminapi'
+        }
+      },
+      '/api': {
+        target: 'http://localhost:8081',
+        ws: true,
+        changeOrigin: true,
+        pathRewrite: {
+          '^/api': '/api'
+        }
+      },
+      '/admin': {
+        target: 'http://localhost:8081',
+        ws: true,
+        changeOrigin: true,
+        pathRewrite: {
+          '^/admin': '/admin'
+        }
+      }
+    }
   },
 
   // 打包优化
