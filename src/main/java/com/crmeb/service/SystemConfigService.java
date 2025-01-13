@@ -3,6 +3,7 @@ package com.crmeb.service;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import com.crmeb.service.cache.CacheService;
 import java.util.Map;
 import java.util.HashMap;
 import java.util.List;
@@ -30,7 +31,7 @@ public class SystemConfigService {
     private static final String CACHE_SYSTEM = "system_config";
     private static final int EXPIRE_TIME = 30 * 24 * 3600; // 30 days
 
-    private final CacheService cacheService;
+    private final com.crmeb.service.cache.CacheService cacheService;
 
     /**
      * Get single configuration value
