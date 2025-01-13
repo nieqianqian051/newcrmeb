@@ -40,4 +40,12 @@ public class ApiResult<T> {
         result.setMessage(message);
         return result;
     }
+
+    public static <T> ApiResult<T> fail(String message) {
+        return error(message);
+    }
+
+    public static <T> ApiResult<T> fail(int code, String message) {
+        return error(code, message);
+    }
 }

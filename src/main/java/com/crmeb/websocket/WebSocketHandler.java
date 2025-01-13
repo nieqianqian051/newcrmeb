@@ -43,7 +43,7 @@ public class WebSocketHandler extends TextWebSocketHandler {
     protected void handleTextMessage(WebSocketSession session, TextMessage message) {
         try {
             String payload = message.getPayload();
-            WebSocketMessage<?> msg = JSON.parseObject(payload, WebSocketMessage.class);
+            WebSocketMessage<Object> msg = JSON.parseObject(payload, WebSocketMessage.class);
             
             switch (msg.getType()) {
                 case "join":
