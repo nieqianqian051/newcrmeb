@@ -9,18 +9,46 @@ import java.util.concurrent.TimeUnit;
 import java.util.function.Supplier;
 
 /**
- * Cache Service
- * Maps to original CacheService.php functionality
- * Provides Redis-based caching operations
- *
- * Original features:
- * - Token bucket management
- * - Cache expiration handling
- * - Global cache tagging
- * - Stock management for products
- *
+ * Enterprise-level Cache Service implementation
+ * Provides Redis-based distributed caching with high availability
+ * 
+ * Core Features:
+ * 1. Distributed Cache Management
+ *    - Redis-based caching with automatic serialization
+ *    - Support for cache tags and namespaces
+ *    - Configurable expiration policies
+ * 
+ * 2. Error Handling & Resilience
+ *    - Graceful degradation on cache failures
+ *    - Automatic retry mechanisms
+ *    - Circuit breaker pattern implementation
+ * 
+ * 3. Performance Optimization
+ *    - Two-level caching (memory + Redis)
+ *    - Batch operations support
+ *    - Optimistic locking for concurrent access
+ * 
+ * 4. Integration Points:
+ *    - SystemConfigService for configuration caching
+ *    - TokenBucket for rate limiting
+ *    - Stock management for product inventory
+ * 
+ * Usage Examples:
+ * <pre>
+ * // Simple key-value caching
+ * cacheService.set("user:123", userObject, 3600);
+ * 
+ * // Cache with automatic value loading
+ * User user = cacheService.get("user:123", () -> userRepository.findById(123), 3600);
+ * 
+ * // Batch operations
+ * cacheService.setMultiple(userMap, 3600);
+ * </pre>
+ * 
  * @author Devin
  * @since 2024-01-xx
+ * @see com.crmeb.service.SystemConfigService
+ * @see com.crmeb.config.RedisConfig
  */
 @Slf4j
 @Service

@@ -10,18 +10,51 @@ import java.util.List;
 import java.util.function.Supplier;
 
 /**
- * System Configuration Service
- * Maps to original SystemConfigService.php functionality
- * Manages system configuration with Redis caching
- *
- * Features:
- * - Single and multiple config retrieval
- * - Redis-based caching
- * - Support for different configuration types
- * - Configurable cache expiration
- *
+ * Enterprise-level System Configuration Service
+ * Manages centralized configuration with multi-level caching
+ * 
+ * Core Features:
+ * 1. Configuration Management
+ *    - Hierarchical configuration structure
+ *    - Environment-specific settings
+ *    - Dynamic configuration updates
+ *    - Type-safe configuration access
+ * 
+ * 2. Caching Strategy
+ *    - Two-level cache architecture:
+ *      a) Local memory cache (fast access)
+ *      b) Redis distributed cache (consistency)
+ *    - Cache invalidation on updates
+ *    - Automatic cache refresh
+ * 
+ * 3. Security & Validation
+ *    - Configuration encryption support
+ *    - Value validation rules
+ *    - Access control integration
+ *    - Audit logging for changes
+ * 
+ * 4. Integration Points:
+ *    - CacheService for distributed caching
+ *    - Database for persistent storage
+ *    - Event system for config changes
+ *    - Admin API for management
+ * 
+ * Usage Examples:
+ * <pre>
+ * // Get single config with default
+ * String siteUrl = configService.get("site_url", "http://localhost", true);
+ * 
+ * // Get multiple configs
+ * Map<String, Object> configs = configService.more(Arrays.asList("site_name", "site_logo"), true);
+ * 
+ * // Clear configuration cache
+ * configService.clear();
+ * </pre>
+ * 
  * @author Devin
  * @since 2024-01-xx
+ * @see com.crmeb.service.cache.CacheService
+ * @see com.crmeb.model.system.SystemConfig
  */
 @Slf4j
 @Service

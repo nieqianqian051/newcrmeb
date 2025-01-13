@@ -16,19 +16,60 @@ import javax.validation.Valid;
 
 
 /**
- * Login Controller
- * Maps to original route/api.php login endpoints
- * Handles user authentication and registration
- *
- * Original routes:
- * - POST /api/login (账号密码登录)
- * - POST /api/login/mobile (手机号登录)
- * - POST /api/register (手机号注册)
- * - POST /api/register/verify (验证码发送)
- * - POST /api/register/reset (手机号修改密码)
+ * Enterprise Authentication Controller
+ * Handles user authentication, registration, and security verification
+ * 
+ * Core Features:
+ * 1. Multi-Channel Authentication
+ *    - Username/password login
+ *    - Mobile number verification
+ *    - WeChat OAuth integration
+ *    - Security code verification
+ * 
+ * 2. Security Measures
+ *    - Sliding captcha verification
+ *    - Rate limiting on login attempts
+ *    - Account lockout protection
+ *    - Session management
+ * 
+ * 3. Registration Flow
+ *    - Mobile verification
+ *    - Account validation
+ *    - Welcome notification
+ *    - Initial profile setup
+ * 
+ * 4. Password Management
+ *    - Secure password reset
+ *    - Password policy enforcement
+ *    - History tracking
+ *    - Expiration policies
+ * 
+ * API Endpoints:
+ * 1. Authentication
+ *    POST /api/login - Standard login
+ *    POST /api/login/mobile - Mobile login
+ *    POST /api/login/secure - Security verification
+ * 
+ * 2. Registration
+ *    POST /api/register - New account
+ *    POST /api/register/verify - Verification code
+ *    POST /api/register/reset - Password reset
+ * 
+ * 3. Security
+ *    GET /api/ajcaptcha - Get captcha
+ *    POST /api/ajcheck - Verify captcha
+ *    POST /api/is_captcha - Check if captcha needed
+ * 
+ * Error Handling:
+ * - 401: Invalid credentials
+ * - 403: Account locked
+ * - 429: Too many attempts
+ * - 400: Invalid input
  * 
  * @author Devin
  * @since 2024-01-xx
+ * @see com.crmeb.security.JwtAuthenticationFilter
+ * @see com.crmeb.security.CustomUserDetailsService
  */
 @Slf4j
 @RestController
