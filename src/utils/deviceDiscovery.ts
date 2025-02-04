@@ -1,5 +1,5 @@
-import { ref } from 'vue';
-import type { Device } from '@/types/device';
+import { ref } from '@vue/runtime-core';
+import type { Device } from '../types/device';
 
 const MOCK_DEVICES = [
   { id: 'light1', name: 'Living Room Light', type: 'light', status: 'online' },
