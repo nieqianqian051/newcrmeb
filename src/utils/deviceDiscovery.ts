@@ -1,5 +1,5 @@
 import { ref } from '@vue/runtime-core';
-import type { Device } from '@/types/device';
+import type { Device } from '../types/device';
 
 const MOCK_DEVICES = [
   { id: 'light1', name: 'Living Room Light', type: 'light', status: 'online' },
@@ -16,6 +16,7 @@ export function useDeviceDiscovery() {
     isScanning.value = true;
     discoveredDevices.value = [];
     
+    // Simulate device discovery with delays
     let index = 0;
     const discoveryInterval = setInterval(() => {
       if (index < MOCK_DEVICES.length) {
