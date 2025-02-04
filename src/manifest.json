@@ -1,0 +1,19 @@
+{
+    "name" : "Smart Home",
+    "appid" : "",
+    "description" : "Smart Home Mini Program",
+    "versionName" : "1.0.0",
+    "versionCode" : "100",
+    "transformPx" : false,
+    "mp-weixin" : {
+        "appid" : "",
+        "setting" : {
+            "urlCheck" : false,
+            "es6" : true,
+            "postcss" : true,
+            "minified" : true
+        },
+        "usingComponents" : true,
+        "permission" : {}
+    }
+}
