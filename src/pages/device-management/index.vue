@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from '@vue/runtime-core';
+import { ref } from 'vue';
 import { useDeviceStore } from '@/stores/device';
 import { Device } from '@/types/device';
 import DeviceCard from '@/components/device/DeviceCard.vue';
