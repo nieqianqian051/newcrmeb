@@ -1,0 +1,22 @@
+{
+	"pages": [
+		{
+			"path": "pages/device-management/index",
+			"style": {
+				"navigationBarTitleText": "设备管理"
+			}
+		}
+	],
+	"globalStyle": {
+		"navigationBarTextStyle": "black",
+		"navigationBarTitleText": "智能家居",
+		"navigationBarBackgroundColor": "#F8F8F8",
+		"backgroundColor": "#F8F8F8"
+	},
+	"easycom": {
+		"autoscan": true,
+		"custom": {
+			"^uni-(.*)": "@dcloudio/uni-ui/lib/uni-$1/uni-$1.vue"
+		}
+	}
+}
